@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅 スピードスケジュール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background"></div>
+    <div class="app-container">
+        <header>
+            <div id="currentTime" class="current-time"></div>
+            <h1>スピードスケジュール</h1>
+        </header>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevMonth">＜</button>
+            <h2 id="currentMonthYear"></h2>
+            <button id="nextMonth">＞</button>
+        </div>
+        <table id="calendar">
+            <thead>
+                <tr>
+                    <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    
+
+    <div id="templateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>テンプレートを選択</h2>
+            <div id="templateContainer">
+                </div>
+
+            <!-- 追加: テンプレート選択画面内のテンプレート追加ボタン -->
+            <div style="margin-top:12px;text-align:right;">
+                <button id="addTemplateButtonInModal" style="padding:8px 12px;background:#2b8fbf;color:white;border:none;border-radius:4px;cursor:pointer;">
+                    テンプレートを追加
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button-edit">&times;</span>
+            <h2>予定の編集</h2>
+            <p id="editDateDisplay"></p>
+            <textarea id="editInput" placeholder="予定を編集してください"></textarea>
+            <div class="modal-button-group">
+                <button id="saveEdit">変更を保存</button>
+                <button id="splitSchedule">分割して追加</button>
+                <button id="deleteScheduleInModal" class="danger-button">予定を削除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 追加: テンプレート追加モーダル -->
+    <div id="addTemplateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button-add">&times;</span>
+            <h2>テンプレートを追加</h2>
+            <p>タイトルを入力してください。キーは自動生成されます（任意で指定可）。</p>
+            <input id="newTemplateTitle" type="text" placeholder="テンプレート名（例: 早朝作業）" style="width:95%;padding:8px;margin:6px 0;border:1px solid #ccc;border-radius:4px;">
+            <input id="newTemplateKey" type="text" placeholder="（任意）キー（英数字_で入力）" style="width:95%;padding:8px;margin:6px 0;border:1px solid #ccc;border-radius:4px;">
+            <div style="margin-top:10px;">
+                <button id="saveNewTemplate" style="background:#38a169;color:white;padding:8px 12px;border:none;border-radius:4px;cursor:pointer;">追加して保存</button>
+            </div>
+        </div>
+    </div>
+
+    </div> <!-- .app-container -->
+    <script src="script.js"></script>
+</body>
+</html>

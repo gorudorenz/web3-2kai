@@ -1,0 +1,466 @@
+:root {
+    --ios-blue: #007AFF;
+    --ios-indigo: #5856D6;
+    --ios-red: #FF3B30;
+    --ios-green: #34C759;
+    --ios-gray: #8E8E93;
+    --ios-background: #F2F2F7;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--ios-background);
+    color: #1C1C1E;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1C1C1E;
+    letter-spacing: -0.5px;
+    margin-top: 10px;
+}
+
+.current-time {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ios-blue);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+/* Calendar Container */
+.calendar-container {
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 30px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.calendar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.calendar-header button {
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--ios-blue);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-header button:hover {
+    background: var(--ios-blue);
+    color: white;
+    transform: scale(1.1);
+}
+
+#calendar {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+    table-layout: fixed;
+}
+
+#calendar th {
+    font-weight: 600;
+    color: var(--ios-gray);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#calendar td {
+    height: 120px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    vertical-align: top;
+    position: relative;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+#calendar td:hover {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(0, 122, 255, 0.3);
+}
+
+.day-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1C1C1E;
+    z-index: 2;
+}
+
+/* Time Slots */
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 35px;
+    padding-bottom: 5px;
+}
+
+.slot {
+    flex: 1;
+    margin: 2px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    transition: background-color 0.1s;
+    overflow: hidden;
+}
+
+.slot:hover {
+    background-color: rgba(0, 122, 255, 0.05);
+}
+
+.slot.selected {
+    background-color: rgba(0, 122, 255, 0.15);
+    box-shadow: inset 0 0 0 1px var(--ios-blue);
+}
+
+/* Schedule Block */
+.schedule-block {
+    background-color: var(--ios-blue);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: relative;
+    flex: 1 1 0;
+    min-height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.1s ease;
+}
+
+.schedule-block:active {
+    transform: scale(0.95);
+}
+
+.delete-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    border: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.schedule-block:hover .delete-btn {
+    opacity: 1;
+}
+
+/* Today Highlight */
+#calendar .today {
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid var(--ios-blue);
+}
+
+.today .day-number {
+    color: var(--ios-blue);
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    margin: 10vh auto;
+    padding: 30px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.close-button, .close-button-edit, .close-button-add {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: var(--ios-gray);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-button:hover {
+    background: rgba(0,0,0,0.1);
+    color: #1C1C1E;
+}
+
+/* Template Cards */
+#templateContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.template-card {
+    height: 70px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.template-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.template-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.template-delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.1);
+    color: white;
+    border: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.template-card:hover .template-delete-btn {
+    opacity: 1;
+}
+
+/* Buttons and Inputs */
+.modal-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button#addTemplateButtonInModal, #saveEdit, #splitSchedule, #saveNewTemplate, #deleteScheduleInModal {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#saveEdit, #addTemplateButtonInModal {
+    background: var(--ios-blue);
+    color: white;
+}
+
+#splitSchedule {
+    background: rgba(255, 149, 0, 0.1);
+    color: #FF9500;
+}
+
+#saveNewTemplate {
+    background: var(--ios-green);
+    color: white;
+}
+
+#deleteScheduleInModal.danger-button {
+    background: rgba(255, 59, 48, 0.1);
+    color: var(--ios-red);
+    margin-top: 10px;
+}
+
+#deleteScheduleInModal.danger-button:hover {
+    background: var(--ios-red);
+    color: white;
+}
+
+button:active {
+    transform: scale(0.97);
+    opacity: 0.8;
+}
+
+#editInput, #newTemplateTitle, #newTemplateKey {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.5);
+    font-family: inherit;
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+#editInput:focus, #newTemplateTitle:focus {
+    outline: none;
+    border-color: var(--ios-blue);
+    background: white;
+}
+
+/* Custom styles for slots labels */
+.slot span {
+    font-weight: 600;
+    color: var(--ios-gray);
+    letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendar-container {
+        padding: 15px;
+        border-radius: 16px;
+    }
+    #calendar td {
+        height: 80px;
+    }
+    .day-number {
+        font-size: 0.8rem;
+    }
+    .slot span {
+        font-size: 0.6rem !important;
+    }
+}
